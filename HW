@@ -1,0 +1,5 @@
+Дописать метод player.move()
+
+Дописать метод zombie.move() # Мы знаем позицию игрока -> (p_x, p_y), direction = (player.pos - zombie.pos)
+
+Переписать frames в frames_dic
