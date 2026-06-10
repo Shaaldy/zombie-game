@@ -3,7 +3,7 @@ from pygame import Vector2
 from utils.colors import Colors
 
 
-sheet = pygame.image.load(r'D:\Users\shald\PycharmProjects\classes\pictures\ZombieToast.png')
+sheet = pygame.image.load(r'.\pictures\ZombieToast.png')
 
 FRAME_WIDTH = 64
 FRAME_HEIGHT = 64
@@ -13,7 +13,6 @@ frames = []
 frames_dic = {
     'idle': [],
     'run': []
-
 }
 
 for i in range(0, 1600, FRAME_WIDTH):
