@@ -66,12 +66,11 @@ while running:
 
     # Отрисовка сущностей
     player.draw(pygame, screen)
-    zombie.draw(pygame, screen)
+    zombie.draw(clock, screen)
     for bullet in bullets:
         bullet.draw(pygame, screen)
 
-    for frame in zombie.frames:
-        screen.blit(frame, zombie.position)
+
     # Обновление экрана
     pygame.display.flip()
 
