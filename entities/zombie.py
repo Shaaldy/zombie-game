@@ -21,10 +21,22 @@ class Zombie:
         self.radius = 10
         self.frames = self.__init_dic__()
         self.direction = Vector2(0, 0)
+        self.cnt_die = 0
+        self.cnt_running = 0
+        self.die = False
 
-    def draw(self, clock, screen):
-        if self.is_move():
-            current_frame = clock.get_time() % len(self.frames['run'])
+    def draw(self, clock, screen, flag = False):
+        if flag and self.die == False:
+            self.speed = 0
+            current_frame = self.cnt_die
+            self.cnt_die = (self.cnt_die + 1)
+            if self.cnt_die >= 12:
+                self.die = True
+            self.cnt_die %= len(self.frames['die'])
+            screen.blit(self.frames['die'][current_frame], self.position)
+        elif self.is_move():
+            current_frame = self.cnt_running
+            self.cnt_running = (self.cnt_running + 1) % len(self.frames['run'])
             screen.blit(self.frames['run'][current_frame], self.position)
         else:
             current_frame = clock.get_time() % len(self.frames['idle'])
@@ -67,3 +79,9 @@ class Zombie:
         for i in range(start, step, FRAME_WIDTH):
             frames_dic['die'].append(sheet.subsurface((i, 0, FRAME_WIDTH, FRAME_HEIGHT)))
         return frames_dic
+
+    def get_damage(self, bullet_pos: Vector2):
+        if (bullet_pos - self.position).magnitude() < 10:
+            self.hp -= 3
+        if self.hp <= 0:
+            self.die = True

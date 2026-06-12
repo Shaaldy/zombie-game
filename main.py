@@ -37,6 +37,8 @@ zombie = Zombie(random.randint(0, 789), random.randint(0, 789))
 R = 11
 bullets = []
 
+zombies = []
+
 # Главный игровой цикл
 while running:
     # Контроль частоты кадров
@@ -56,7 +58,9 @@ while running:
 
 
     for bullet in bullets:
+        zombie.get_damage(bullet.position)
         bullet.move()
+
 
 
     zombie.move(player.position)
@@ -66,7 +70,11 @@ while running:
 
     # Отрисовка сущностей
     player.draw(pygame, screen)
-    zombie.draw(clock, screen)
+    if not (zombie.get_damage()):
+        zombie.draw(clock, screen, False)
+    else:
+        zombie.draw(clock, screen, True)
+
     for bullet in bullets:
         bullet.draw(pygame, screen)
 
