@@ -22,7 +22,7 @@ pygame.init()
 # Константы экрана
 WIDTH = 800
 HEIGHT = 800
-FPS = 60
+FPS = 10
 
 # Создание игрового окна
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -72,14 +72,15 @@ while running:
     # Отрисовка сущностей
     player.draw(pygame, screen)
     idx = []
-    for i in range(len(zombies)):
-        if zombies[i].die:
-            zombies[i].draw(clock, screen, True)
-            idx.append(i)
+    for zombie in zombies:
+        print(zombie.cnt_die)
+        if zombie.die:
+            zombies.remove(zombie)
+        elif zombie.hp <= 0:
+            zombie.draw_dying(screen)
         else:
-            zombies[i].draw(clock, screen, False)
-    for i in idx:
-        zombies.pop(i)
+            zombie.draw_run(clock, screen)
+
 
     for bullet in bullets:
         bullet.draw(pygame, screen)
@@ -87,6 +88,5 @@ while running:
     # Обновление экрана
     pygame.display.flip()
 
-    print(len(bullets))
 # Завершение работы
 pygame.quit()

@@ -25,22 +25,23 @@ class Zombie:
         self.cnt_running = 0
         self.die = False
 
-    def draw(self, clock, screen, flag = False):
-        if flag:
-            self.speed = 0
-            current_frame = self.cnt_die
-            self.cnt_die = (self.cnt_die + 1)
-            if self.cnt_die >= 12:
-                self.die = True
-            self.cnt_die %= len(self.frames['die'])
-            screen.blit(self.frames['die'][current_frame], self.position)
-        elif self.is_move():
+    def draw_run(self, clock, screen):
+        if self.is_move():
             current_frame = self.cnt_running
             self.cnt_running = (self.cnt_running + 1) % len(self.frames['run'])
             screen.blit(self.frames['run'][current_frame], self.position)
         else:
             current_frame = clock.get_time() % len(self.frames['idle'])
             screen.blit(self.frames['idle'][current_frame], self.position)
+
+    def draw_dying(self, screen):
+        self.speed = 0
+        current_frame = self.cnt_die
+        self.cnt_die = (self.cnt_die + 1)
+        if self.cnt_die >= 10:
+            self.die = True
+        self.cnt_die %= len(self.frames['die'])
+        screen.blit(self.frames['die'][current_frame], self.position)
 
     def move(self, player_pos: Vector2):
         self.direction = (player_pos - self.position).normalize()
@@ -83,5 +84,6 @@ class Zombie:
     def get_damage(self, bullet_pos: Vector2):
         if (bullet_pos - self.position).magnitude() < 10:
             self.hp -= 3
-        if self.hp <= 0:
-            self.die = True
+
+
+
