@@ -11,12 +11,12 @@ FRAME_HEIGHT = 64
 
 
 class Zombie:
-    def __init__(self, x, y):
+    def __init__(self, x, y, speed=2):
         self.position = Vector2(x, y)
         self.color = (0, 220, 80)
         self.hp = 10
         self.velocity = Vector2(0, 0)
-        self.speed=2
+        self.speed=speed
         self.attack=1
         self.radius = 10
         self.frames = self.__init_dic__()
@@ -26,7 +26,7 @@ class Zombie:
         self.die = False
 
     def draw(self, clock, screen, flag = False):
-        if flag and self.die == False:
+        if flag:
             self.speed = 0
             current_frame = self.cnt_die
             self.cnt_die = (self.cnt_die + 1)

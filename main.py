@@ -32,12 +32,13 @@ pygame.display.set_caption("Зомби апокалипсис")
 clock = pygame.time.Clock()
 running = True
 player = Player(WIDTH // 2, HEIGHT // 2)
-zombie = Zombie(random.randint(0, 789), random.randint(0, 789))
 
 R = 11
 bullets = []
 
 zombies = []
+for i in range(10):
+    zombies.append(Zombie(random.randint(0, 789), random.randint(0, 789), random.uniform(0, 3)))
 
 # Главный игровой цикл
 while running:
@@ -58,30 +59,34 @@ while running:
 
 
     for bullet in bullets:
-        zombie.get_damage(bullet.position)
+        for zombie in zombies:
+            zombie.get_damage(bullet.position)
         bullet.move()
 
-
-
-    zombie.move(player.position)
+    for zombie in zombies:
+        zombie.move(player.position)
 
     # Очистка экрана
     screen.fill(Colors.BLACK.value)
 
     # Отрисовка сущностей
     player.draw(pygame, screen)
-    if not (zombie.get_damage()):
-        zombie.draw(clock, screen, False)
-    else:
-        zombie.draw(clock, screen, True)
+    idx = []
+    for i in range(len(zombies)):
+        if zombies[i].die:
+            zombies[i].draw(clock, screen, True)
+            idx.append(i)
+        else:
+            zombies[i].draw(clock, screen, False)
+    for i in idx:
+        zombies.pop(i)
 
     for bullet in bullets:
         bullet.draw(pygame, screen)
 
-
     # Обновление экрана
     pygame.display.flip()
 
-
+    print(len(bullets))
 # Завершение работы
 pygame.quit()
