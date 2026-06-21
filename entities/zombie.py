@@ -55,7 +55,7 @@ class Zombie:
         return self.direction != Vector2(0, 0)
 
     def __init_dic__(self):
-        sheet = pygame.image.load(r'.\pictures\ZombieToast.png')
+        sheet = pygame.image.load(r'.\assets\pictures\ZombieToast.png')
         print(sheet.size)
         frames_dic = {
             'idle': [],
@@ -88,6 +88,8 @@ class Zombie:
     def get_damage(self, bullet_pos: Vector2):
         if (bullet_pos - self.position).magnitude() < 10:
             self.hp -= 3
+            return True
+        return False
 
 
 

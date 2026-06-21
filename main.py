@@ -14,6 +14,8 @@ from entities.bullet import Bullet
 from utils.colors import Colors
 
 
+pygame.mixer.init()
+pygame.mixer.music.load('assets/music/sound.mp3')
 
 
 # Инициализация Pygame
@@ -60,7 +62,8 @@ while running:
 
     for bullet in bullets:
         for zombie in zombies:
-            zombie.get_damage(bullet.position)
+            if zombie.get_damage(bullet.position):
+                pygame.mixer.music.play(loops=0)
         bullet.move()
 
     for zombie in zombies:
@@ -83,6 +86,10 @@ while running:
 
     for bullet in bullets:
         bullet.draw(pygame, screen)
+
+    if len(zombies) <= 2:
+        for i in range(3):
+            zombies.append(Zombie(random.randint(0, 789), random.randint(0, 789), random.uniform(0, 3)))
 
     # Обновление экрана
     pygame.display.flip()
