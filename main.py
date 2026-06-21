@@ -73,7 +73,6 @@ while running:
     player.draw(pygame, screen)
     idx = []
     for zombie in zombies:
-        print(zombie.cnt_die)
         if zombie.die:
             zombies.remove(zombie)
         elif zombie.hp <= 0:
