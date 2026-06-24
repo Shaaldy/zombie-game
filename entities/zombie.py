@@ -56,7 +56,6 @@ class Zombie:
 
     def __init_dic__(self):
         sheet = pygame.image.load(r'.\assets\pictures\ZombieToast.png')
-        print(sheet.size)
         frames_dic = {
             'idle': [],
             'run': [],
