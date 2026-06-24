@@ -16,9 +16,15 @@ class Player:
         self.velocity = Vector2(0, 0)
         self.radius = 10
         self.speed = 4
+        self.cnt_running = 0
 
-    def draw(self, pygame, screen):
-        pygame.draw.circle(screen, self.color, self.position, self.radius)
+    def draw(self, screen):
+        # pygame.draw.circle(screen, self.color, self.position, self.radius)
+
+        current_frame = self.cnt_running
+        self.cnt_running = (self.cnt_running + 1) % len(self.frames)
+        rect = self.frames[current_frame].get_rect(center=self.position)
+        screen.blit(self.frames[current_frame], rect)
 
     def move(self, pygame, keys):
         x = self.position.x
@@ -41,8 +47,8 @@ class Player:
         sheet = pygame.image.load(r'.\assets\pictures\cat.png')
         shift = 48
         fly = [0] * 6
-        for i in range(0, WIDTH, shift):
-            fly[i] = sheet.subsurface((i, 0, i + 32, HEIGHT))
+        for i in range(0, 288, shift):
+            fly[i] = sheet.subsurface((i, 0, i + 32, 64))
         return fly
 
 

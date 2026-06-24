@@ -83,7 +83,7 @@ while running:
     screen.fill(Colors.BLACK.value)
 
     # Отрисовка сущностей
-    player.draw(pygame, screen)
+    player.draw(screen)
     idx = []
     for zombie in zombies:
         if zombie.die:
