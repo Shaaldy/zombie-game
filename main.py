@@ -61,10 +61,20 @@ while running:
 
 
     for bullet in bullets:
+        hit = False
         for zombie in zombies:
             if zombie.get_damage(bullet.position):
                 pygame.mixer.music.play(loops=0)
-        bullet.move()
+                hit = True
+                break
+
+        if hit:
+            bullets.remove(bullet)
+        else:
+            bullet.move()
+            if (bullet.position.x < 0 or bullet.position.x > WIDTH or
+                    bullet.position.y < 0 or bullet.position.y > HEIGHT):
+                bullets.remove(bullet)
 
     for zombie in zombies:
         zombie.move(player.position)
