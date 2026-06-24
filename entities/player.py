@@ -1,3 +1,4 @@
+import pygame
 from pygame import Vector2
 
 from utils.colors import Colors
@@ -9,6 +10,7 @@ HEIGHT = 800
 class Player:
     def __init__(self, x, y):
         self.position = Vector2(x, y)
+        self.frames = self.__init_frames__()
         self.color = (0, 0, 255)
         self.hp = 100
         self.velocity = Vector2(0, 0)
@@ -35,6 +37,13 @@ class Player:
 
         self.position = Vector2(x, y)
 
+    def __init_frames__(self):
+        sheet = pygame.image.load(r'.\assets\pictures\cat.png')
+        shift = 48
+        fly = [0] * 6
+        for i in range(0, WIDTH, shift):
+            fly[i] = sheet.subsurface((i, 0, i + 32, HEIGHT))
+        return fly
 
 
 
