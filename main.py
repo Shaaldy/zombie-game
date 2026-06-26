@@ -11,8 +11,9 @@ from pygame import Vector2
 from entities.player import Player
 from entities.zombie import Zombie
 from entities.bullet import Bullet
+from menu.menu import Menu
 from utils.colors import Colors
-
+from menu.settings import *
 
 pygame.mixer.init()
 pygame.mixer.music.load('assets/music/sound.mp3')
@@ -22,14 +23,16 @@ pygame.mixer.music.load('assets/music/sound.mp3')
 pygame.init()
 
 # Константы экрана
-WIDTH = 800
-HEIGHT = 800
-FPS = 10
+WIDTH = SCREEN_W
+HEIGHT = SCREEN_H
+FPS = 30
 
 # Создание игрового окна
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Зомби апокалипсис")
 
+#menu = Menu(screen)
+#menu.run()
 # Игровые объекты
 clock = pygame.time.Clock()
 running = True
@@ -100,6 +103,7 @@ while running:
     if len(zombies) <= 2:
         for i in range(3):
             zombies.append(Zombie(random.randint(0, 789), random.randint(0, 789), random.uniform(0, 3)))
+
 
     # Обновление экрана
     pygame.display.flip()

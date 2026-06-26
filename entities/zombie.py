@@ -25,6 +25,7 @@ class Zombie:
         self.cnt_die = 0
         self.cnt_running = 0
         self.die = False
+        self.куда_смотрит = False
 
     def draw_run(self, clock, screen):
         if self.is_move():
@@ -50,6 +51,9 @@ class Zombie:
     def move(self, player_pos: Vector2):
         self.direction = (player_pos - self.position).normalize()
         self.position += self.direction * self.speed
+        if (self.direction.x < 0 and self.куда_смотрит == True) or (self.direction.x > 0 and self.куда_смотрит == False):
+            self.rotate()
+            self.куда_смотрит = not self.куда_смотрит
 
     def is_move(self):
         return self.direction != Vector2(0, 0)
@@ -90,5 +94,7 @@ class Zombie:
             return True
         return False
 
+    def rotate(self):
+        pass
 
 

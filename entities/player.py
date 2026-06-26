@@ -46,10 +46,19 @@ class Player:
     def __init_frames__(self):
         sheet = pygame.image.load(r'.\assets\pictures\cat.png')
         shift = 48
-        fly = [0] * 6
+        fly = []
         for i in range(0, 288, shift):
-            fly[i] = sheet.subsurface((i, 0, i + 32, 64))
+            fly.append(sheet.subsurface((i, 0, shift, 64)))
+        print(type(fly[0]))
         return fly
+
+    def rotate(self):
+        """
+        Развернуть все анимации кошки на 180 гр.
+        """
+        fr = self.frames[0]
+
+        pass
 
 
 
